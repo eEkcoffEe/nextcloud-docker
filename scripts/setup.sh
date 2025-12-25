@@ -53,6 +53,11 @@ if [ ! -f "/srv/mergerfs/pool1/nextcloud/.ocdata" ]; then
     echo "# Nextcloud data directory" > /srv/mergerfs/pool1/nextcloud/.ocdata
 fi
 
+# Set proper permissions for the data directory
+# Nextcloud in Docker runs as www-data user (UID 33 in Alpine)
+chown -R 33:33 /srv/mergerfs/pool1/nextcloud 2>/dev/null || true
+chmod -R 755 /srv/mergerfs/pool1/nextcloud 2>/dev/null || true
+
 # Check if there's existing data in the old location and migrate if needed
 # First, stop any running containers to ensure data consistency
 echo "Checking for existing data to migrate..."
