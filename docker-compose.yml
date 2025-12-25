@@ -32,6 +32,7 @@ services:
     volumes:
       - nextcloud_data:/var/www/html
       - ./nextcloud/config:/var/www/html/config
+      - ./nextcloud/config/overwrite.config.php:/var/www/html/config/overwrite.config.php
     environment:
       - NEXTCLOUD_ADMIN_USER=${NEXTCLOUD_ADMIN_USER}
       - NEXTCLOUD_ADMIN_PASSWORD=${NEXTCLOUD_ADMIN_PASSWORD}
@@ -44,6 +45,9 @@ services:
       - APACHE_DISABLE_REWRITE_IP_RULES=1
       - NEXTCLOUD_TRUSTED_PROXIES=nginx
       - NEXTCLOUD_OVERRIDE_PROTOCOL=https
+      - NEXTCLOUD_TRUSTED_PROXY=nginx
+      - NEXTCLOUD_TRUSTED_PROXY_COUNT=1
+      - NEXTCLOUD_TRUSTED_PROXY_HEADERS=2
     networks:
       - nextcloud_network
 
