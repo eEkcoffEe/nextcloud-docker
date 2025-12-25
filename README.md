@@ -107,3 +107,39 @@ docker compose ps
 
 ### Порт 80 уже занят
 Проект настроен таким образом, что не использует порт 80, а работает только на порту 8443 с HTTPS.
+
+## Резервное копирование и восстановление
+
+### Резервное копирование базы данных
+
+Для создания резервной копии базы данных PostgreSQL используйте следующую команду:
+
+```bash
+export PGPASSWORD=nextcloud_db_password
+docker exec nextcloud-docker-postgres-1 pg_dump -U nextcloud -d nextcloud > /path/to/backup/nextcloud_backup_$(date +%F).sql
+```
+
+Для резервного копирования всех баз данных:
+
+```bash
+export PGPASSWORD=nextcloud_db_password
+docker exec nextcloud-docker-postgres-1 pg_dumpall -U nextcloud > /path/to/backup/nextcloud_backup_$(date +%F).sql
+```
+
+### Восстановление из резервной копии
+
+Для восстановления из резервной копии, созданной командой `pg_dumpall`:
+
+```bash
+export PGPASSWORD=nextcloud_db_password
+docker exec -i nextcloud-docker-postgres-1 psql -U nextcloud -d postgres < /path/to/backup_file.sql
+```
+
+Для восстановления из резервной копии, созданной командой `pg_dump`:
+
+```bash
+export PGPASSWORD=nextcloud_db_password
+docker exec -i nextcloud-docker-postgres-1 pg_restore -U nextcloud -d nextcloud --clean --no-acl --no-owner < /path/to/backup_file.sql
+```
+
+**Важно**: Перед восстановлением рекомендуется остановить все контейнеры командой `docker compose down`, выполнить восстановление, а затем запустить контейнеры снова командой `docker compose up -d`.
