@@ -42,6 +42,8 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - REDIS_HOST=redis
       - APACHE_DISABLE_REWRITE_IP_RULES=1
+      - NEXTCLOUD_TRUSTED_PROXIES=nginx
+      - NEXTCLOUD_OVERRIDE_PROTOCOL=https
     networks:
       - nextcloud_network
 
