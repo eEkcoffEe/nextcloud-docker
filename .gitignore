@@ -1,0 +1,28 @@
+# Environment specific files
+.env
+
+# SSL certificates
+nginx/ssl/nextcloud.crt
+nginx/ssl/nextcloud.key
+
+# Data volumes
+nextcloud/
+postgres/
+redis/
+
+# Docker related
+.dockerignore
+*.dockerignore
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*~
+.swp
+.vscode/
+.idea/
