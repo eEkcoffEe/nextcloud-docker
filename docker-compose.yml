@@ -31,6 +31,7 @@ services:
       - redis
     volumes:
       - nextcloud_data:/var/www/html
+      - /srv/mergerfs/pool1/nextcloud:/var/www/html/data
       - ./nextcloud/config:/var/www/html/config
       - ./nextcloud/config/overwrite.config.php:/var/www/html/config/overwrite.config.php
     environment:
@@ -59,10 +60,9 @@ services:
     ports:
       - "${HTTPS_PORT}:8443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - ./nginx/ssl/nextcloud.crt:/etc/ssl/certs/nextcloud.crt
       - ./nginx/ssl/nextcloud.key:/etc/ssl/private/nextcloud.key
-      - nextcloud_data:/var/www/html:ro
     networks:
       - nextcloud_network
 
