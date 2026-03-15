@@ -1,0 +1,20 @@
+# Nextcloud
+data/
+db-data/
+html/
+apps/
+letsencrypt/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
